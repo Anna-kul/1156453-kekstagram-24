@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger, getItem, getItemAvatar} from './utils.js';
+import {getRandomPositiveInteger, getItem, getItemAvatar, }  from './utils.js'; 
 const NAMES_FOR_COMMENTS = [
   'Антон',
   'Юрий',
@@ -43,19 +43,23 @@ const DESCRIPTIONS = [
   'Порядок',
 ];
 const SIMILAR_FOTO_COUNT = 25;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
+
 const createComments = () => ({
-  id: getItem(),
-  avatar: `img/avatar-${   getItemAvatar() }.svg`,
-  message: MESSAGES[getRandomPositiveInteger(0, MESSAGES.length -1)],
-  name: NAMES_FOR_COMMENTS[getRandomPositiveInteger(0, NAMES_FOR_COMMENTS.length -1)],
+  id: getRandomArrayElement(getItem()),
+  avatar: `img/avatar-${  getRandomArrayElement(getItemAvatar())  }.svg`,
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(NAMES_FOR_COMMENTS),
 });
+
 const createFoto =() => ({
-  id:getItem(),
-  url: `photos/${   getItem()  }.jpg`,
-  description: DESCRIPTIONS[getRandomPositiveInteger(0, DESCRIPTIONS.length-1)],
-  likes: getRandomPositiveInteger(15, 200),
+  id: getRandomArrayElement(getItem()),
+  url: `/photos/${  getRandomArrayElement(getItem())   }.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: getRandomPositiveInteger(MIN_LIKES, MAX_LIKES),
   comments: createComments(),
 });
 const createFotos = () => Array.from({length: SIMILAR_FOTO_COUNT},createFoto);
-export {createFotos, createFoto};
-export {NAMES_FOR_COMMENTS, MESSAGES, DESCRIPTIONS, SIMILAR_FOTO_COUNT};
+export {NAMES_FOR_COMMENTS, MESSAGES, DESCRIPTIONS, SIMILAR_FOTO_COUNT, createFotos, createFoto};

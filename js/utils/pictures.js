@@ -16,3 +16,4 @@ similarFotos.forEach(({url, likes, comments}) =>{
   similarFotosFragment.appendChild(fotoElement);
 });
 pictureContainer.appendChild(similarFotosFragment);
+export{pictureContainer};
