@@ -1,4 +1,4 @@
-import {createFotos} from './data.js';
+import {createPhotos} from './data.js';
 const pictureContainer = document.querySelector('.pictures');
 const picturesTitle = pictureContainer.querySelector('.pictures__title');
 picturesTitle.classList.remove('visually-hidden');
@@ -6,7 +6,7 @@ pictureContainer.querySelector('.img-upload__title').classList.remove('visually-
 
 const fotoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const similarFotos = createFotos();
+const similarFotos = createPhotos();
 const similarFotosFragment = document.createDocumentFragment();
 similarFotos.forEach(({url, likes, comments}) =>{
   const fotoElement = fotoTemplate.cloneNode(true);
