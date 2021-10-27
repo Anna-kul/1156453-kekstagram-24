@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger, getItem, getItemAvatar}  from './utils.js';
+import {getRandomPositiveInteger, getItem}  from './utils.js';
 const NAMES_FOR_COMMENTS = [
   'Антон',
   'Юрий',
@@ -45,20 +45,37 @@ const DESCRIPTIONS = [
 const SIMILAR_PHOTO_COUNT = 25;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
+const MIN_AVATAR = 1;
+const MAX_AVATAR = 6;
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-const createComments = () => ({
-  id: getRandomArrayElement(getItem()),
-  avatar: `img/avatar-${  getRandomArrayElement(getItemAvatar())  }.svg`,
-  message: getRandomArrayElement(MESSAGES),
-  name: getRandomArrayElement(NAMES_FOR_COMMENTS),
-});
-const createPhoto =() => ({
-  id: getRandomArrayElement(getItem()),
-  url: `/photos/${  getRandomArrayElement(getItem())   }.jpg`,
+// const createComments = () => ({
+//   id: getRandomArrayElement(getItem()),
+//   avatar: `img/avatar-${  getRandomArrayElement(getItemAvatar())  }.svg`,
+//   message: getRandomArrayElement(MESSAGES),
+//   name: getRandomArrayElement(NAMES_FOR_COMMENTS),
+// });
+// const createPhoto =() => ({
+//   id: getRandomArrayElement(getItem()),
+//   url: `/photos/${  getRandomArrayElement(getItem())   }.jpg`,
+//   description: getRandomArrayElement(DESCRIPTIONS),
+//   likes: getRandomPositiveInteger(MIN_LIKES, MAX_LIKES),
+//   comments: createComments(),
+// });
+
+
+const createPhoto = getItem().map((index) => ({
+  id: index,
+  url: `/photos/${  index  }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomPositiveInteger(MIN_LIKES, MAX_LIKES),
-  comments: createComments(),
-});
-const createPhotos = () => Array.from({length: SIMILAR_PHOTO_COUNT}, createPhoto);
-export {NAMES_FOR_COMMENTS, MESSAGES, DESCRIPTIONS, SIMILAR_PHOTO_COUNT, createPhotos, createPhoto};
+  comments: {
+    id: index,
+    avatar: `img/avatar-${  getRandomPositiveInteger(MIN_AVATAR, MAX_AVATAR)  }.svg`,
+    message: getRandomArrayElement(MESSAGES),
+    name: getRandomArrayElement(NAMES_FOR_COMMENTS),
+  },
+}),
+);
+//const createPhotos = () => Array.from({length: SIMILAR_PHOTO_COUNT}, createPhoto);
+export {NAMES_FOR_COMMENTS, MESSAGES, DESCRIPTIONS, SIMILAR_PHOTO_COUNT, createPhoto};
