@@ -4,7 +4,9 @@ const uploadFileOpen = document.querySelector('#upload-file');
 const formEdit = document.querySelector('.img-upload__overlay');
 const bodyAll = document.querySelector('body');
 const closeButton = document.querySelector('#upload-cancel');
-const usersHashtags = document.querySelector('.text__hashtags');
+//const usersHashtags = document.querySelector('.text__hashtags');
+const formForHashtags = document.querySelector('.img-upload__text');
+const inputForHashtag = formForHashtags.querySelector('input');
 const userComments = document.querySelector('.text__description');
 
 const onLoadEscKeydown = (evt) => {
@@ -43,24 +45,23 @@ closeButton.addEventListener('keydown', (evt) => {
 });
 
 const hashtag = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
-usersHashtags.addEventListener('input', () => {
-  const formForHashtags = document.querySelector('.img-upload__text');
-  const inputForHashtag = formForHashtags.querySelector('input').value.trim();
-  const arrayOfStrings = inputForHashtag.split(' ');
-  if  (arrayOfStrings.length > 5){
-    usersHashtags.setCustomValidity('Нельзя указать больше пяти хэш-тегов');
-  }
+inputForHashtag.addEventListener('input', () => {
+  const arrayOfStrings = inputForHashtag.value.trim().split(' ');
+  const checkArray = arrayOfStrings.every((b) => hashtag.test(b));
   for (let i = 0; i < arrayOfStrings.length; i++){
-    if (hashtag.test(arrayOfStrings[i])) {
-      usersHashtags.setCustomValidity('');
-    } else {
-      usersHashtags.setCustomValidity('Хэш-тег должен начинаться с символа # и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;');
+    if(!checkArray){
+      inputForHashtag.setCustomValidity('Хэш-тег должен начинаться с символа # и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;');
     }
   }
-  // eslint-disable-next-line no-unused-vars
-  function hasDuplicates(array){
-    return (new Set(array)).size !== arrayOfStrings.length;
-  }
+
+  //console.log(checkArray);
+//   if  (arrayOfStrings.length > 5){
+//     usersHashtags.setCustomValidity('Нельзя указать больше пяти хэш-тегов');
+//   }
+//   // eslint-disable-next-line no-unused-vars
+//   function hasDuplicates(array){
+//     return (new Set(array)).size !== arrayOfStrings.length;
+//   }
 });
 const MAX_LENGTH_COMMENT = 140;
 
