@@ -12,7 +12,11 @@ const userComments = document.querySelector('.text__description');
 const onLoadEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeLoadModal();
+    if (document.activeElement === userComments || document.activeElement === inputForHashtag) {
+      evt.stopPropagation;
+    } else {
+      closeLoadModal();
+    }
   }
 };
 function openLoadModal () {
@@ -44,24 +48,43 @@ closeButton.addEventListener('keydown', (evt) => {
   }
 });
 
-const hashtag = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
+const regExpHashtag = /[A-Za-zА-Яа-яЁё0-9]$/;
+const regExpFirstSymbol = /^#/;
+const regExpOneHash = /#\s/;
+const regExpSpaceBeforeHashtag = /\S#/;
 inputForHashtag.addEventListener('input', () => {
-  const arrayOfStrings = inputForHashtag.value.trim().split(' ');
-  const checkArray = arrayOfStrings.every((b) => hashtag.test(b));
-  for (let i = 0; i < arrayOfStrings.length; i++){
-    if(!checkArray){
-      inputForHashtag.setCustomValidity('Хэш-тег должен начинаться с символа # и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;');
-    }
+  const errors = [];
+  const inputValue = inputForHashtag.value;
+  const arrayOfHashtags = inputForHashtag.value.trim().toLowerCase().split(' ').filter((item) => item !== '');
+  const hasStringDuplicates =  (new Set(arrayOfHashtags)).size !== arrayOfHashtags.length;
+  const hasSpaceBeforeHash = regExpSpaceBeforeHashtag.test(inputValue);
+  const isEveryHashtagStartsHash = arrayOfHashtags.every((hashtag) => regExpFirstSymbol.test(hashtag));
+  const isEveryHashtagLessTwentySymbols = arrayOfHashtags.every((hashtag) => hashtag.length > 20);
+  const isEveryHashtagHasText = arrayOfHashtags.every((hashtag) => regExpOneHash.test(hashtag));
+  const isEveryHashtagValid = arrayOfHashtags.every((hashtag) => regExpHashtag.test(hashtag.replace('#', '')) || hashtag === '#');
+  if  (arrayOfHashtags.length > 5){
+    errors.push('\n- Нельзя указать больше пяти хэш-тегов');
   }
-
-  //console.log(checkArray);
-//   if  (arrayOfStrings.length > 5){
-//     usersHashtags.setCustomValidity('Нельзя указать больше пяти хэш-тегов');
-//   }
-//   // eslint-disable-next-line no-unused-vars
-//   function hasDuplicates(array){
-//     return (new Set(array)).size !== arrayOfStrings.length;
-//   }
+  if (hasStringDuplicates) {
+    errors.push('\n- Один и тот же хэш-тег не может быть использован дважды');
+  }
+  if (hasSpaceBeforeHash){
+    errors.push('\n- Хэш-теги разделяются пробелами');
+  }
+  if(!isEveryHashtagStartsHash){
+    errors.push('\n- Хеш-тег должен начинаться с символа # (решетка)');
+  }
+  if(isEveryHashtagLessTwentySymbols){
+    errors.push('\n- Максимальная длина одного хэш-тега 20 символов, включая решётку');
+  }
+  if(isEveryHashtagHasText){
+    errors.push('\n- Хеш-тег не может состоять только из одной решётки');
+  }
+  if(!isEveryHashtagValid){
+    errors.push('\n- Хэш-тег не может содержать спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;');
+  }
+  inputForHashtag.setCustomValidity(errors.toString());
+  inputForHashtag.reportValidity();
 });
 const MAX_LENGTH_COMMENT = 140;
 
