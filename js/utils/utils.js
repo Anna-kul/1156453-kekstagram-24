@@ -12,5 +12,7 @@ const getRandomSet = (amount) => {
 };
 
 const getItem = getRandomSet(25);
-const getItemAvatar = getRandomSet(6);
-export {getRandomPositiveInteger, getItem, getItemAvatar};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+export {getRandomPositiveInteger, getItem, isEscapeKey, isEnterKey};
