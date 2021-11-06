@@ -4,3 +4,4 @@ import {createPhoto} from './utils/data.js';
 import {pictureContainer} from './utils/pictures.js';
 import './utils/form.js';
 import './utils/slider.js';
+import './utils/big-picture.js';
