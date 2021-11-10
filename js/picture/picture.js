@@ -8,7 +8,7 @@ const createPicture = (pictureData) => {
 
   if (pictureTemplate === null) {
     // eslint-disable-next-line no-console
-    console.warn(`Элемент 'pictureTemplate' не найден`);
+    console.warn('Элемент pictureTemplate не найден');
 
     return;
   }
@@ -17,7 +17,7 @@ const createPicture = (pictureData) => {
 
   if (pictureFromTemplate === null) {
     // eslint-disable-next-line no-console
-    console.warn(`Элемент 'pictureFromTemplate' не найден`);
+    console.warn('Элемент pictureFromTemplate не найден');
 
     return;
   }
@@ -57,13 +57,6 @@ export const renderSimilarPhoto = (similarPhoto) => {
     similarFotosFragment.appendChild(picture);
   });
   pictureContainer.appendChild(similarFotosFragment);
-};
-
-/**
- * @todo Посмотреть используется ли
- */
-export const clearPictureContainer = () => {
-  pictureContainer.innerHTML = '';
 };
 
 picturesTitle.classList.remove('visually-hidden');
