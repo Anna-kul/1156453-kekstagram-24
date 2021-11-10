@@ -49,21 +49,6 @@ const MIN_AVATAR = 1;
 const MAX_AVATAR = 6;
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-// const createComments = () => ({
-//   id: getRandomArrayElement(getItem()),
-//   avatar: `img/avatar-${  getRandomArrayElement(getItemAvatar())  }.svg`,
-//   message: getRandomArrayElement(MESSAGES),
-//   name: getRandomArrayElement(NAMES_FOR_COMMENTS),
-// });
-// const createPhoto =() => ({
-//   id: getRandomArrayElement(getItem()),
-//   url: `/photos/${  getRandomArrayElement(getItem())   }.jpg`,
-//   description: getRandomArrayElement(DESCRIPTIONS),
-//   likes: getRandomPositiveInteger(MIN_LIKES, MAX_LIKES),
-//   comments: createComments(),
-// });
-
-
 const createPhoto = getItem().map((index) => ({
   id: index,
   url: `/photos/${  index  }.jpg`,
@@ -77,5 +62,4 @@ const createPhoto = getItem().map((index) => ({
   },
 }),
 );
-//const createPhotos = () => Array.from({length: SIMILAR_PHOTO_COUNT}, createPhoto);
 export {NAMES_FOR_COMMENTS, MESSAGES, DESCRIPTIONS, SIMILAR_PHOTO_COUNT, createPhoto};

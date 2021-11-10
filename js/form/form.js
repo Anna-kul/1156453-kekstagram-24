@@ -24,7 +24,6 @@ const onLoadEscKeydown = (evt) => {
 function openLoadModal() {
   formEdit.classList.remove('hidden');
   bodyAll.classList.add('modal-open');
-  //pictureContainer;
   document.addEventListener('keydown', onLoadEscKeydown);
 }
 
