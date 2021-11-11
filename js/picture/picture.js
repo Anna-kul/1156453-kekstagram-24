@@ -57,7 +57,11 @@ export const renderSimilarPhoto = (similarPhoto) => {
     similarFotosFragment.appendChild(picture);
   });
   pictureContainer.appendChild(similarFotosFragment);
+  picturesTitle.classList.remove('visually-hidden');
+  pictureContainer.querySelector('.img-upload__title').classList.remove('visually-hidden');
+};
+export const clearPictureContiner = () =>{
+  pictureContainer.innerHTML = '';
 };
 
-picturesTitle.classList.remove('visually-hidden');
-pictureContainer.querySelector('.img-upload__title').classList.remove('visually-hidden');
+

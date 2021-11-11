@@ -1,3 +1,4 @@
+// const ALERT_SHOW_TIME = 5000;
 const getRandomPositiveInteger = (from, to) => {
   const min = Math.floor(Math.min(from, to));
   const max = Math.floor(Math.max(from, to));
@@ -15,16 +16,4 @@ const getItem = getRandomSet(25);
 const isEscapeKey = (evt) => evt.key === 'Escape';
 const isEnterKey = (evt) => evt.key === 'Enter';
 
-const TIMEOUT_DELAY = 500;
-
-const debounce = (callback, timeoutDelay = TIMEOUT_DELAY) => {
-  let timeoutId;
-
-  return (...rest) => {
-    clearTimeout(timeoutId);
-
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
-};
-
-export {getRandomPositiveInteger, getItem, isEscapeKey, isEnterKey, debounce};
+export {getRandomPositiveInteger, getItem, isEscapeKey, isEnterKey};

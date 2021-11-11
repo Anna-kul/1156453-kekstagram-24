@@ -31,7 +31,7 @@
       <section class="img-upload" >
         <div class="img-upload__wrapper">
           <h2 class="img-upload__title  visually-hidden">Загрузка фотографии</h2>
-          <form class="img-upload__form" id="upload-select-image" method="post" enctype="multipart/form-data" action='multipart/form-data' autocomplete="off">
+          <form class="img-upload__form" id="upload-select-image" method="post" enctype="multipart/form-data" action='multipart/form-data' autocomplete="off" novalidate>
 
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start" >
@@ -206,22 +206,12 @@
     </a>
   </template>
 
-  <!-- Сообщение с ошибкой загрузки изображения -->
-  <template id="error">
-    <section class="error">
-      <div class="error__inner">
-        <h2 class="error__title">Ошибка загрузки файла</h2>
-        <button type="button" class="error__button">Загрузить другой файл</button>
-      </div>
-    </section>
-  </template>
-
-  <!-- Сообщение об успешной загрузке изображения -->
-  <template id="success">
-    <section class="success">
-      <div class="success__inner">
-        <h2 class="success__title">Изображение успешно загружено</h2>
-        <button type="button" class="success__button">Круто!</button>
+  <!-- Нотификация -->
+  <template id="notification-popup">
+    <section class="notification-popup">
+      <div class="notification-popup__inner">
+        <h2 class="notification-popup__title">Заголовок</h2>
+        <button type="button" class="notification-popup__button">Текст кнопки</button>
       </div>
     </section>
   </template>

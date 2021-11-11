@@ -1,16 +1,4 @@
-const MAX_SCALE_VALUE = 100;
-const STEP_SCALE_VALUE = 25;
-const MIN_SCALE_VALUE = 25;
-
-const formForHashtags = document.querySelector('.img-upload__form');
-const inputForHashtag = formForHashtags.querySelector('.text__hashtags');
-const imgUploadOverlay = document.querySelector('.img-upload__overlay');
-export const imgUploadPreview = imgUploadOverlay.querySelector('.img-upload__preview').querySelector('img');
-const scaleControlBigger = document.querySelector('.scale__control--bigger');
-const scaleControlSmaller = document.querySelector('.scale__control--smaller');
-const scaleControlValue = document.querySelector('.scale__control--value');
-
-const validateInputForHashtag = () => {
+export const validateInputForHashtag = (inputForHashtag) => {
   inputForHashtag.setCustomValidity('');
 
   const inputValue = inputForHashtag.value;
@@ -21,7 +9,7 @@ const validateInputForHashtag = () => {
 
   const arrayOfHashtags = inputForHashtag.value.trim().toLowerCase().split(' ').filter((item) => item.length > 0);
   const hasStringDuplicates =  (new Set(arrayOfHashtags)).size !== arrayOfHashtags.length;
-  const hasSpaceBeforeHash = /\s#/.test(inputValue);
+  const hasSpaceBeforeHash = /\S#/.test(inputValue);
   const arrayFromValue = inputValue.split(' ').filter((item) => item.length > 0);
 
   if (hasStringDuplicates) {
@@ -36,7 +24,7 @@ const validateInputForHashtag = () => {
     return;
   }
 
-  if (!hasSpaceBeforeHash){
+  if (hasSpaceBeforeHash){
     inputForHashtag.setCustomValidity('Хэш-теги разделяются пробелами');
 
     return;
@@ -92,61 +80,3 @@ const validateInputForHashtag = () => {
     }
   }
 };
-
-scaleControlSmaller.addEventListener('click',()=>{
-  const value = scaleControlValue.value;
-  const length = value.length-1;
-  const valueArr = value.split('').splice(0,length);
-  const number = Number(valueArr.join(''));
-  const currentValue = number - STEP_SCALE_VALUE;
-
-  if (currentValue < MIN_SCALE_VALUE){
-    return;
-  }
-
-  scaleControlValue.value = `${currentValue}%`;
-  scale(currentValue /100);
-});
-
-scaleControlBigger.addEventListener('click',()=>{
-  const value = scaleControlValue.value;
-  const length = value.length-1;
-  const valueArr = value.split('').splice(0,length);
-  const number = Number(valueArr.join(''));
-  const currentValue = number + STEP_SCALE_VALUE;
-
-  if (currentValue > MAX_SCALE_VALUE){
-    return;
-  }
-
-  scaleControlValue.value = `${currentValue}%`;
-  scale(currentValue /100);
-});
-
-function scale(value){
-  imgUploadPreview.style.transform=(`scale(${value})`);
-}
-
-inputForHashtag.addEventListener('input', () => {
-  validateInputForHashtag();
-});
-
-formForHashtags.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-
-  if (!formForHashtags.checkValidity()) {
-    formForHashtags.reportValidity();
-
-    return;
-  }
-
-  const formData = new FormData(formForHashtags);
-
-  fetch(
-    'https://24.javascript.pages.academy/kekstagram',
-    {
-      method: 'POST',
-      body: formData,
-    },
-  );
-});
