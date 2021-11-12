@@ -682,6 +682,10 @@ main {
   border: none;
 }
 
+.img-upload__form_validation .text__hashtags:invalid {
+  border: 3px solid red;
+}
+
 .text__hashtags {
   width: 450px;
 
@@ -1205,8 +1209,7 @@ main {
  * Экраны ошибки и успеха загрузки изображения
  */
 
-.error,
-.success {
+.notification-popup {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -1221,8 +1224,7 @@ main {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.error__inner,
-.success__inner {
+.notification-popup__inner {
   position: relative;
   width: 600px;
   padding: 50px 20px;
@@ -1244,12 +1246,12 @@ main {
   border-radius: 10px;
 }
 
-.success__inner {
+.notification-popup_succes .notification-popup__inner {
   padding: 100px 20px;
   padding-bottom: 75px;
 }
 
-.error__title {
+.notification-popup__title {
   position: relative;
 
   margin: 0;
@@ -1258,14 +1260,14 @@ main {
   font-size: 32px;
 }
 
-.success__title {
+.notification-popup_success .notification-popup__title {
   margin: 0;
   margin-bottom: 50px;
 
   font-size: 32px;
 }
 
-.error__title::before {
+.notification-popup_error .notification-popup__title::before {
   content: "";
   position: absolute;
 
@@ -1282,8 +1284,7 @@ main {
           transform: translateX(-50%);
 }
 
-.error__button,
-.success__button {
+.notification-popup__button {
   padding: 5px 10px;
 
   color: #ffffff;
@@ -1294,15 +1295,12 @@ main {
   border-radius: 5px;
 }
 
-.error__button:hover,
-.error__button:focus,
-.success__button:hover,
-.success__button:focus {
+.notification-popup__button:hover,
+.notification-popup__button:focus {
   opacity: 0.8;
 }
 
-.error__button:active,
-.success__button:active {
+.notification-popup__button:active {
   opacity: 0.6;
 }
 
