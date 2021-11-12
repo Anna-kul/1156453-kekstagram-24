@@ -18,3 +18,6 @@ const handleGetDataFail = () => {
 };
 
 getDataRecursively();
+
+import './utils/big-picture.js';
+

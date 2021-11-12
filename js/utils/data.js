@@ -48,18 +48,26 @@ const MAX_LIKES = 200;
 const MIN_AVATAR = 1;
 const MAX_AVATAR = 6;
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
+<<<<<<< HEAD
 
+=======
+const createComment = (index) => ({
+  id: index,
+  avatar: `img/avatar-${  getRandomPositiveInteger(MIN_AVATAR, MAX_AVATAR)  }.svg`,
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(NAMES_FOR_COMMENTS),
+});
+const createComments = () => {
+  const quantity = getRandomPositiveInteger(1, 20);
+  return Array(quantity).fill(null).map(() => createComment());
+};
+>>>>>>> d30bfcb4a8bd3ce200020877bf0538e12a0d2359
 const createPhoto = getItem().map((index) => ({
   id: index,
   url: `/photos/${  index  }.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomPositiveInteger(MIN_LIKES, MAX_LIKES),
-  comments: {
-    id: index,
-    avatar: `img/avatar-${  getRandomPositiveInteger(MIN_AVATAR, MAX_AVATAR)  }.svg`,
-    message: getRandomArrayElement(MESSAGES),
-    name: getRandomArrayElement(NAMES_FOR_COMMENTS),
-  },
+  comments: createComments(),
 }),
 );
 export {NAMES_FOR_COMMENTS, MESSAGES, DESCRIPTIONS, SIMILAR_PHOTO_COUNT, createPhoto};
