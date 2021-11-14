@@ -1,9 +1,19 @@
+import {getData} from '../api.js';
+import {setState, getState} from '../state.js';
 import {showBigPicture} from './big-picture.js';
+import '../form/slider.js';
+import {showNotificationPopup} from '../notification-popup.js';
+
+const SIMILAR_PICTURES_COUNT = 25;
+const RANDOM_PICTURES_COUNT = 10;
 
 const pictureContainer = document.querySelector('.pictures');
 const picturesTitle = pictureContainer.querySelector('.pictures__title');
+const imgFilters = document.querySelector('.img-filters');
+const imgUpload = document.querySelector('.img-upload');
+const imgUploadTitle = pictureContainer.querySelector('.img-upload__title');
 
-const createPicture = (pictureData) => {
+export const createPicture = (pictureData) => {
   const pictureTemplate = document.querySelector('#picture');
 
   if (pictureTemplate === null) {
@@ -49,19 +59,72 @@ const createPicture = (pictureData) => {
   return picture;
 };
 
-export const renderSimilarPhoto = (similarPhoto) => {
-  const similarFotosFragment = document.createDocumentFragment();
-  similarPhoto.forEach((pictureData) =>{
+const renderPictures = (pictureDatas) => {
+  const fragment = document.createDocumentFragment();
+
+  pictureDatas.forEach((pictureData) =>{
     const picture = createPicture(pictureData);
 
-    similarFotosFragment.appendChild(picture);
+    fragment.appendChild(picture);
   });
-  pictureContainer.appendChild(similarFotosFragment);
+
+  pictureContainer.appendChild(fragment);
+
   picturesTitle.classList.remove('visually-hidden');
-  pictureContainer.querySelector('.img-upload__title').classList.remove('visually-hidden');
+  imgUploadTitle.classList.remove('visually-hidden');
+  imgFilters.classList.remove('img-filters--inactive');
 };
+
 export const clearPictureContiner = () =>{
   pictureContainer.innerHTML = '';
 };
 
+const handleGetDataSuccess = (pictureDatas) => {
+  setState('pictures', pictureDatas);
 
+  renderPictures(pictureDatas.slice(0, SIMILAR_PICTURES_COUNT));
+};
+
+const handleGetDataFail = () => {
+  // eslint-disable-next-line no-use-before-define
+  showNotificationPopup({type: 'error', text: 'Не удалось загрузить фотографии', button: {text: 'Попробовать ещё раз', onclick: getDataRecursively()}});
+};
+
+const getDataRecursively = () => {
+  getData(handleGetDataSuccess, handleGetDataFail);
+};
+
+const removePictures = () => {
+  while (imgUpload.nextElementSibling) {
+    imgUpload.nextElementSibling.remove();
+  }
+};
+
+const filterRandomPictures = (pictureDatas) => pictureDatas.slice().sort(() => Math.random() - Math.random());
+
+const filterDiscussedPictures = (pictureDatas) => pictureDatas.slice().sort((a, b) => b.comments.length - a.comments.length);
+
+const handleFilterChange = (evt) => {
+  removePictures();
+  switch (evt.detail.currentFilter) {
+    case 'random':
+      renderPictures(
+        filterRandomPictures(getState().pictures).slice(0, RANDOM_PICTURES_COUNT),
+      );
+
+      break;
+    case 'discussed':
+      renderPictures(
+        filterDiscussedPictures(getState().pictures).slice(0, SIMILAR_PICTURES_COUNT),
+      );
+
+      break;
+
+    default:
+      renderPictures(getState().pictures.slice(0, SIMILAR_PICTURES_COUNT));
+  }
+};
+
+document.addEventListener('filter/change', handleFilterChange);
+
+getDataRecursively();

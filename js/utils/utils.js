@@ -1,4 +1,3 @@
-// const ALERT_SHOW_TIME = 5000;
 const getRandomPositiveInteger = (from, to) => {
   const min = Math.floor(Math.min(from, to));
   const max = Math.floor(Math.max(from, to));
