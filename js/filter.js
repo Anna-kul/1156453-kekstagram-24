@@ -6,12 +6,17 @@ const ClassName = {
   filterButtonActive: 'img-filters__button--active',
 };
 const changeCurrentFilter = debounce((value) => {
+  if (value === currentFilter) {
+    return;
+  }
+
   currentFilter = value;
 
   document.dispatchEvent(new CustomEvent('filter/change', {detail: {currentFilter: value}}));
 });
 
 const handleClick = (evt) => {
+
   if (!evt.target.id.startsWith('filter')) {
     return;
   }
@@ -22,9 +27,6 @@ const handleClick = (evt) => {
   });
   filterButton.classList.add(ClassName.filterButtonActive);
   const filter = filterButton.id.slice(7);
-  if (filter === currentFilter) {
-    return;
-  }
   changeCurrentFilter(filter);
 };
 

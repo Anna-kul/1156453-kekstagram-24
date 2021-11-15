@@ -10,7 +10,7 @@ export const validateInputForHashtag = (inputForHashtag) => {
   const arrayOfHashtags = inputForHashtag.value.trim().toLowerCase().split(' ').filter((item) => item.length > 0);
   const hasStringDuplicates =  (new Set(arrayOfHashtags)).size !== arrayOfHashtags.length;
   const hasSpaceBeforeHash = /\S#/.test(inputValue);
-  const arrayFromValue = inputValue.split(' ').filter((item) => item.length > 0);
+  const arrayFromValues = inputValue.split(' ').filter((item) => item.length > 0);
 
   if (hasStringDuplicates) {
     inputForHashtag.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
@@ -36,8 +36,8 @@ export const validateInputForHashtag = (inputForHashtag) => {
     return;
   }
 
-  for(let i = 0;  i < arrayFromValue.length; i++) {
-    const word = arrayFromValue[i].split('');
+  for(let i = 0;  i < arrayFromValues.length; i++) {
+    const word = arrayFromValues[i].split('');
 
     for(let j = 0; j < word.length; j++){
       if(word[0] !== '#'){
