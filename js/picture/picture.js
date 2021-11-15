@@ -75,9 +75,6 @@ const renderPictures = (pictureDatas) => {
   imgFilters.classList.remove('img-filters--inactive');
 };
 
-export const clearPictureContiner = () =>{
-  pictureContainer.innerHTML = '';
-};
 
 const handleGetDataSuccess = (pictureDatas) => {
   setState('pictures', pictureDatas);

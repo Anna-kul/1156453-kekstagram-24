@@ -7,13 +7,12 @@ const MAX_SCALE_VALUE = 100;
 const STEP_SCALE_VALUE = 25;
 const MIN_SCALE_VALUE = 25;
 
-const imgUploadForm = document.querySelector('.img-upload__form');
+export const imgUploadForm = document.querySelector('.img-upload__form');
 const inputForHashtag = imgUploadForm.querySelector('.text__hashtags');
 const userComments = imgUploadForm.querySelector('.text__description');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadPreview = imgUploadOverlay.querySelector('.img-upload__preview').querySelector('img');
 const uploadFileOpen = document.querySelector('#upload-file');
-const formEdit = document.querySelector('.img-upload__overlay');
 const bodyAll = document.querySelector('body');
 const closeButton = document.querySelector('#upload-cancel');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
@@ -32,13 +31,13 @@ const onLoadEscKeydown = (evt) => {
 };
 
 export function openLoadModal() {
-  formEdit.classList.remove('hidden');
+  imgUploadOverlay.classList.remove('hidden');
   bodyAll.classList.add('modal-open');
   document.addEventListener('keydown', onLoadEscKeydown);
 }
 
 export function closeLoadModal() {
-  formEdit.classList.add('hidden');
+  imgUploadOverlay.classList.add('hidden');
   bodyAll.classList.remove('modal-open');
   document.removeEventListener('keydown', onLoadEscKeydown);
   uploadFileOpen.innerHTML = '';
@@ -63,7 +62,7 @@ closeButton.addEventListener('keydown', (evt) => {
   }
 });
 
-scaleControlSmaller.addEventListener('click',()=>{
+scaleControlSmaller.addEventListener('click', () => {
   const value = scaleControlValue.value;
   const length = value.length-1;
   const valueArr = value.split('').splice(0,length);
@@ -78,7 +77,7 @@ scaleControlSmaller.addEventListener('click',()=>{
   scale(currentValue /100);
 });
 
-scaleControlBigger.addEventListener('click',()=>{
+scaleControlBigger.addEventListener('click', () => {
   const value = scaleControlValue.value;
   const length = value.length-1;
   const valueArr = value.split('').splice(0,length);

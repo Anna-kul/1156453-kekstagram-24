@@ -1,3 +1,4 @@
+import {imgUploadForm} from './form.js';
 const SLIDER_PARAMETERS = {
   'chrome': {
     range: {
@@ -60,7 +61,7 @@ const FILTERS = {
   'phobos': 'blur',
   'heat': 'brightness',
 };
-const imgUploadForm = document.querySelector('.img-upload__form');
+
 const imgPreview = imgUploadForm.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectSlider = document.querySelector('.effect-level__slider');
