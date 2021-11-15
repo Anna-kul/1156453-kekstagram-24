@@ -60,23 +60,39 @@ const FILTERS = {
   'phobos': 'blur',
   'heat': 'brightness',
 };
-const imgPreview = document.querySelector('.img-upload__preview img');
+const imgUploadForm = document.querySelector('.img-upload__form');
+const imgPreview = imgUploadForm.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectSlider = document.querySelector('.effect-level__slider');
 const effectValue = document.querySelector('.effect-level__value');
 const effectLevel = document.querySelector('.effect-level');
+
+const hideSlider = () => {
+  imgPreview.className = '';
+  effectSlider.noUiSlider && effectSlider.noUiSlider.destroy();
+  effectLevel.classList.add('hidden');
+};
+
+imgUploadForm.addEventListener('reset', () => {
+  effectSlider.noUiSlider && effectSlider.noUiSlider.reset();
+  imgPreview.style.filter = '';
+  hideSlider();
+});
+
 effectsList.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('effects__radio')) {
     const currentEffectValue = evt.target.value;
     effectLevel.classList.remove('hidden');
+
+    effectSlider.noUiSlider && effectSlider.noUiSlider.reset();
+
     if (currentEffectValue === 'none') {
-      imgPreview.className = '';
-      effectSlider.noUiSlider.destroy();
-      effectLevel.classList.add('hidden');
+      hideSlider();
     } else {
       if (!effectSlider.noUiSlider) {
         noUiSlider.create(effectSlider, SLIDER_PARAMETERS[currentEffectValue]);
       }
+
       imgPreview.className = `effects__preview--${currentEffectValue}`;
       effectSlider.noUiSlider.off('update');
       effectSlider.noUiSlider.on('update', (value, handle, unencoded) => {
@@ -86,3 +102,4 @@ effectsList.addEventListener('click', (evt) => {
     }
   }
 });
+

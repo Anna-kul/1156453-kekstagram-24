@@ -1,6 +1,4 @@
 import {isEscapeKey, isEnterKey} from '../utils/utils.js';
-
-//import { showAlert } from '../utils/utils.js';
 import {sendData} from '../api.js';
 import {validateInputForHashtag} from './user-form.js';
 import {showNotificationPopup} from '../notification-popup.js';
@@ -9,9 +7,9 @@ const MAX_SCALE_VALUE = 100;
 const STEP_SCALE_VALUE = 25;
 const MIN_SCALE_VALUE = 25;
 
-const formForHashtags = document.querySelector('.img-upload__form');
-const inputForHashtag = formForHashtags.querySelector('.text__hashtags');
-const userComments = formForHashtags.querySelector('.text__description');
+const imgUploadForm = document.querySelector('.img-upload__form');
+const inputForHashtag = imgUploadForm.querySelector('.text__hashtags');
+const userComments = imgUploadForm.querySelector('.text__description');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadPreview = imgUploadOverlay.querySelector('.img-upload__preview').querySelector('img');
 const uploadFileOpen = document.querySelector('#upload-file');
@@ -45,7 +43,8 @@ export function closeLoadModal() {
   document.removeEventListener('keydown', onLoadEscKeydown);
   uploadFileOpen.innerHTML = '';
   imgUploadPreview.style.transform = 'scale(1)';
-  formForHashtags.reset();
+  imgUploadForm.classList.remove('img-upload__form_validation');
+  imgUploadForm.reset();
 }
 
 uploadFileOpen.addEventListener ('change', openLoadModal);
@@ -125,17 +124,17 @@ const handleSendDataFail = () => {
   });
 };
 
-formForHashtags.addEventListener('submit', (evt) => {
+imgUploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
-  formForHashtags.classList.remove('img-upload__form_validation');
+  imgUploadForm.classList.remove('img-upload__form_validation');
 
-  if (!formForHashtags.checkValidity()) {
-    formForHashtags.classList.add('img-upload__form_validation');
-    formForHashtags.reportValidity();
+  if (!imgUploadForm.checkValidity()) {
+    imgUploadForm.classList.add('img-upload__form_validation');
+    imgUploadForm.reportValidity();
 
     return;
   }
 
-  sendData(handleSendDataSuccess, handleSendDataFail, new FormData(formForHashtags));
+  sendData(handleSendDataSuccess, handleSendDataFail, new FormData(imgUploadForm));
 });

@@ -1,4 +1,5 @@
 import {isEscapeKey} from './utils/utils.js';
+
 const notificationPopupTemplate = document.querySelector('template#notification-popup');
 
 let currentNotificationPopup = null;
@@ -79,5 +80,3 @@ export const showNotificationPopup = (config) => {
   currentNotificationPopup = document.body.appendChild(notificationPopup);
   window.addEventListener('keydown', handleWindowEscKeyDown);
 };
-
-

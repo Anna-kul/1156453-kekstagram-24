@@ -37,14 +37,14 @@ if (
 
 const socialCaption = social.querySelector('.social__caption');
 const socialLikes = social.querySelector('.social__likes');
-const socialVisibleCommentCount = social.querySelector('.social__comment-count');
+const socialCommentsCountBlock = social.querySelector('.social__comment-count');
 const socialComments = social.querySelector('.social__comments');
 const socialCommentsLoader = social.querySelector('.social__comments-loader');
 
 if (
   socialCaption === null
   || socialLikes === null
-  || socialVisibleCommentCount === null
+  || socialCommentsCountBlock === null
   || socialComments === null
   || socialCommentsLoader === null
 ) {
@@ -59,11 +59,12 @@ if (socialLikesCount === null) {
   console.warn('Элемент socialLikesCount не найден');
 }
 
-const socialCommentsCount = socialVisibleCommentCount.querySelector('.comments-count');
+const socialCommentsCount = socialCommentsCountBlock.querySelector('.comments-count');
+const socialVisibleCommentsCount = socialCommentsCountBlock.querySelector('.visible-comments-count');
 
-if (socialCommentsCount === null) {
+if (socialCommentsCount === null || socialVisibleCommentsCount === null) {
   // eslint-disable-next-line no-console
-  console.warn('Элемент socialCommentsCount не найден');
+  console.warn('Необходимые элементы отсутствуют');
 }
 
 /** Шаблон комментария. Не трогать ни при каких обстоятельствах */
@@ -107,6 +108,7 @@ const updateBigPicture = (pictureData) => {
   }
 
   if (pictureData.comments.length > 0) {
+    socialVisibleCommentsCount.textContent = Math.min(pictureData.comments.length, COMMENTS_COUNT);
     socialCommentsCount.textContent = pictureData.comments.length;
   } else {
     socialCommentsCount.remove();
