@@ -15,8 +15,7 @@ const changeCurrentFilter = debounce((value) => {
   document.dispatchEvent(new CustomEvent('filter/change', {detail: {currentFilter: value}}));
 });
 
-const handleClick = (evt) => {
-
+document.addEventListener('click', (evt) => {
   if (!evt.target.id.startsWith('filter')) {
     return;
   }
@@ -28,6 +27,4 @@ const handleClick = (evt) => {
   filterButton.classList.add(ClassName.filterButtonActive);
   const filter = filterButton.id.slice(7);
   changeCurrentFilter(filter);
-};
-
-document.addEventListener('click', handleClick);
+});

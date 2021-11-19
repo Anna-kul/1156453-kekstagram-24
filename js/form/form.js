@@ -118,7 +118,7 @@ const handleSendDataFail = () => {
     text: 'Ошибка загрузки файла',
     button: {
       text: 'Загрузить другой файл',
-      onClick: openLoadModal,
+      onClick: closeLoadModal,
     },
   });
 };

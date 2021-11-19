@@ -37,29 +37,29 @@ export const validateInputForHashtag = (inputForHashtag) => {
   }
 
   for(let i = 0;  i < arrayFromValues.length; i++) {
-    const word = arrayFromValues[i].split('');
+    const hashtag = arrayFromValues[i].split('');
 
-    for(let j = 0; j < word.length; j++){
-      if(word[0] !== '#'){
+    for(let j = 0; j < hashtag.length; j++){
+      if(hashtag[0] !== '#'){
         inputForHashtag.setCustomValidity('Хеш-тег должен начинаться с символа # (решетка)');
 
         return;
       }
 
       if (
-        word[j] === '@'
-        || word[j] === '$'
-        || word[j] === '%'
-        || word[j] === '&'
-        || word[j] === '.'
-        || word[j] === ','
-        || word[j] === '!'
-        || word[j] === '?'
-        || word[j] === ':'
-        || word[j] === '*'
-        || word[j] === '+'
-        || word[j] === '-'
-        || word[j] === '/'
+        hashtag[j] === '@'
+        || hashtag[j] === '$'
+        || hashtag[j] === '%'
+        || hashtag[j] === '&'
+        || hashtag[j] === '.'
+        || hashtag[j] === ','
+        || hashtag[j] === '!'
+        || hashtag[j] === '?'
+        || hashtag[j] === ':'
+        || hashtag[j] === '*'
+        || hashtag[j] === '+'
+        || hashtag[j] === '-'
+        || hashtag[j] === '/'
       ) {
         inputForHashtag.setCustomValidity('Хэш-тег не может содержать спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.)');
 
@@ -67,13 +67,13 @@ export const validateInputForHashtag = (inputForHashtag) => {
       }
     }
 
-    if(word.length < 2) {
+    if(hashtag.length < 2) {
       inputForHashtag.setCustomValidity('Хэш-тег не может состоять только из решётки');
 
       return;
     }
 
-    if (word.length > 20){
+    if (hashtag.length > 20){
       inputForHashtag.setCustomValidity('Максимальная длина одного хэш-тега 20 символов, включая решётку');
 
       return;
