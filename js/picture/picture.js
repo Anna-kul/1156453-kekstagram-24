@@ -26,13 +26,13 @@ export const createPicture = (pictureData) => {
   likes.textContent = pictureData.likes;
   comments.textContent = pictureData.comments.length;
 
-  const handlePictureClick = (evt) => {
+  const onPictureClick = (evt) => {
     evt.preventDefault();
 
     showBigPicture(pictureData);
   };
 
-  picture.addEventListener('click', handlePictureClick);
+  picture.addEventListener('click', onPictureClick);
 
   return picture;
 };
@@ -77,7 +77,7 @@ const filterRandomPictures = (pictureDatas) => pictureDatas.slice().sort(() => M
 
 const filterDiscussedPictures = (pictureDatas) => pictureDatas.slice().sort((a, b) => b.comments.length - a.comments.length);
 
-const handleFilterChange = (evt) => {
+const onFilterChange = (evt) => {
   removePictures();
   switch (evt.detail.currentFilter) {
     case 'random':
@@ -98,6 +98,6 @@ const handleFilterChange = (evt) => {
   }
 };
 
-document.addEventListener('filter/change', handleFilterChange);
+document.addEventListener('filter/change', onFilterChange);
 
 getDataRecursively();

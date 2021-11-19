@@ -25,18 +25,18 @@ const onLoadEscKeydown = (evt) => {
     if (document.activeElement === userComments || document.activeElement === inputForHashtag) {
       evt.stopPropagation;
     } else {
-      closeLoadModal();
+      loadModalCloseHandler();
     }
   }
 };
 
-export function openLoadModal() {
+export function loadModalOpenHandler() {
   imgUploadOverlay.classList.remove('hidden');
   bodyAll.classList.add('modal-open');
   document.addEventListener('keydown', onLoadEscKeydown);
 }
 
-export function closeLoadModal() {
+export function loadModalCloseHandler() {
   imgUploadOverlay.classList.add('hidden');
   bodyAll.classList.remove('modal-open');
   document.removeEventListener('keydown', onLoadEscKeydown);
@@ -46,19 +46,19 @@ export function closeLoadModal() {
   imgUploadForm.reset();
 }
 
-uploadFileOpen.addEventListener ('change', openLoadModal);
+uploadFileOpen.addEventListener ('change', loadModalOpenHandler);
 
 uploadFileOpen.addEventListener('keydown', (evt) => {
   if (isEnterKey(evt)) {
-    openLoadModal();
+    loadModalOpenHandler();
   }
 });
 
-closeButton.addEventListener ('click', closeLoadModal);
+closeButton.addEventListener ('click', loadModalCloseHandler);
 
 closeButton.addEventListener('keydown', (evt) => {
   if (isEnterKey(evt)) {
-    closeLoadModal();
+    loadModalCloseHandler();
   }
 });
 
@@ -101,7 +101,7 @@ inputForHashtag.addEventListener('input', () => {
 });
 
 const handleSendDataSuccess = () => {
-  closeLoadModal();
+  loadModalCloseHandler();
   showNotificationPopup({
     type: 'success',
     text: 'Изображение успешно загружено',
@@ -112,13 +112,13 @@ const handleSendDataSuccess = () => {
 };
 
 const handleSendDataFail = () => {
-  closeLoadModal();
+  loadModalCloseHandler();
   showNotificationPopup({
     type: 'error',
     text: 'Ошибка загрузки файла',
     button: {
       text: 'Загрузить другой файл',
-      onClick: closeLoadModal,
+      onClick: loadModalCloseHandler,
     },
   });
 };

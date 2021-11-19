@@ -74,7 +74,7 @@ export const showBigPicture = (pictureData) => {
 
   currentPictureData = pictureData;
 
-  window.addEventListener('keydown', handleWindowEscKeyDown);
+  window.addEventListener('keydown', onWindowEscKeyDown);
 };
 
 const hideBigPicture = () => {
@@ -83,21 +83,21 @@ const hideBigPicture = () => {
 
   currentPictureData = null;
 
-  window.removeEventListener('keydown', handleWindowEscKeyDown);
+  window.removeEventListener('keydown', onWindowEscKeyDown);
 };
 
-const handleCloseButtonClick = () => {
+const onCloseButtonClick = () => {
   hideBigPicture();
 };
 
-function handleWindowEscKeyDown(evt) {
+function onWindowEscKeyDown(evt) {
   if (!isEscapeKey(evt)) {
     return;
   }
 
   hideBigPicture();
 
-  window.removeEventListener('keydown', handleWindowEscKeyDown);
+  window.removeEventListener('keydown', onWindowEscKeyDown);
 }
 
 const handleCommentsLoaderClick = () => {
@@ -115,5 +115,5 @@ const handleCommentsLoaderClick = () => {
   }
 };
 
-closeButton.addEventListener('click', handleCloseButtonClick);
+closeButton.addEventListener('click', onCloseButtonClick);
 socialCommentsLoader.addEventListener('click', handleCommentsLoaderClick);

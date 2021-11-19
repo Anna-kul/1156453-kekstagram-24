@@ -30,10 +30,10 @@ export const hideNotificationPopup = () => {
 
   currentNotificationPopup = null;
 
-  window.removeEventListener('keydown', handleWindowEscKeyDown);
+  window.removeEventListener('keydown', onWindowEscKeyDown);
 };
 
-function handleWindowEscKeyDown(evt) {
+function onWindowEscKeyDown(evt) {
   if (!isEscapeKey(evt)) {
     return;
   }
@@ -78,5 +78,5 @@ export const showNotificationPopup = (config) => {
   const notificationPopup = createNotificationPopup(config);
 
   currentNotificationPopup = document.body.appendChild(notificationPopup);
-  window.addEventListener('keydown', handleWindowEscKeyDown);
+  window.addEventListener('keydown', onWindowEscKeyDown);
 };
